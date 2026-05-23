@@ -95,7 +95,15 @@ export default function Home() {
                     </div>
 
                     {/* Empty/Placeholder Block - Spans 1 col (Under Projects) */}
-                    <div className="hidden rounded-3xl bg-[#111] md:col-span-1 md:block"></div>
+                    <div className="hidden rounded-3xl bg-[#111] md:col-span-1 md:block relative overflow-hidden">
+                        <Image
+                            src="/images/abhi.jpg"
+                            alt="Abhi Pulavarthi"
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                    </div>
 
 
                     {/* --- ROW 3 --- */}
@@ -130,7 +138,7 @@ export default function Home() {
                     <div className="flex flex-col justify-between rounded-3xl bg-[#111] p-8 md:col-span-2">
                         <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">abhinav.pulavarthi06@gmail.com</h3>
                         <div className="flex flex-col sm:flex-row sm:justify-between text-lg text-white/70 gap-2">
-                            <span>Hyderabad, Telangana</span>
+                            <span>Andhra Pradesh</span>
                             <span>+91 7989746968</span>
                         </div>
                     </div>
