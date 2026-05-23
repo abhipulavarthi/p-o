@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { SiLinkedin, SiCredly, SiX, SiGithub } from "react-icons/si";
+import { SiLinkedin, SiCredly, SiInstagram, SiGithub } from "react-icons/si";
+import MagnetLines from "@/components/MagnetLines";
 
 export default function Home() {
     return (
@@ -64,19 +65,17 @@ export default function Home() {
                     </div>
 
                     {/* Pattern Block - Spans 1 col */}
-                    <div className="relative overflow-hidden rounded-3xl bg-[#FF4D00] md:col-span-1">
-                        <div
-                            className="absolute inset-0"
-                            style={{
-                                backgroundImage: `repeating-linear-gradient(
-                                    45deg,
-                                    transparent,
-                                    transparent 10px,
-                                    #000 10px,
-                                    #000 20px
-                                )`,
-                            }}
-                        ></div>
+                    <div className="relative overflow-hidden rounded-3xl bg-[#FF4D00] md:col-span-1 min-h-[220px]">
+                        <MagnetLines
+                            rows={14}
+                            columns={19}
+                            containerSize="100%"
+                            lineColor="#000000"
+                            lineWidth="5px"
+                            lineHeight="30px"
+                            baseAngle={65}
+                            className="absolute inset-0 w-full h-full opacity-90"
+                        />
                     </div>
 
                     {/* Empty/Placeholder Block - Spans 1 col (Under Projects) */}
@@ -95,9 +94,9 @@ export default function Home() {
                             <span className="absolute bottom-4 left-4 text-lg font-bold transition-transform duration-300 group-hover:translate-y-10 group-hover:opacity-0">Credly</span>
                             <SiCredly className="h-12 w-12 text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110" />
                         </a>
-                        <a href="#" className="group relative flex items-center justify-center rounded-3xl bg-[#111] p-4 transition-colors hover:bg-[#1a1a1a] overflow-hidden">
-                            <span className="absolute bottom-4 left-4 text-lg font-bold transition-transform duration-300 group-hover:translate-y-10 group-hover:opacity-0">Twitter</span>
-                            <SiX className="h-12 w-12 text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110" />
+                        <a href="https://www.instagram.com/abhipulavarthi?igsh=aW14ZnphdTc3Z29p&utm_source=qr" target="_blank" rel="noopener noreferrer" className="group relative flex items-center justify-center rounded-3xl bg-[#111] p-4 transition-colors hover:bg-[#1a1a1a] overflow-hidden">
+                            <span className="absolute bottom-4 left-4 text-lg font-bold transition-transform duration-300 group-hover:translate-y-10 group-hover:opacity-0">Instagram</span>
+                            <SiInstagram className="h-12 w-12 text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110" />
                         </a>
                         <a href="https://github.com/abhipulavarthi" target="_blank" rel="noopener noreferrer" className="group relative flex items-center justify-center rounded-3xl bg-[#111] p-4 transition-colors hover:bg-[#1a1a1a] overflow-hidden">
                             <span className="absolute bottom-4 left-4 text-lg font-bold transition-transform duration-300 group-hover:translate-y-10 group-hover:opacity-0">GitHub</span>

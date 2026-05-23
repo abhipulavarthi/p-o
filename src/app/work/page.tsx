@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { SiGithub } from "react-icons/si";
 import Image from "next/image";
@@ -10,7 +11,7 @@ const projects = [
         title: "GrenGcry (FreshGrocery)",
         description: "A full-stack e-commerce application tailored for grocery shopping. The frontend is a modern SPA built with React 18, Vite, Tailwind CSS, and Redux Toolkit. The backend is a robust RESTful API built with Java and Spring Boot, featuring role-based access control, JWT authentication, and PostgreSQL/MySQL for data management.",
         tags: ["React", "Vite", "Tailwind CSS", "Redux", "Spring Boot", "JWT"],
-        image: "/images/projects/grengrcy.png",
+        images: ["/images/projects/grengrcy.png"],
         color: "from-[#10b981]/20 to-[#059669]/5",
         accent: "#10b981",
         borderColor: "border-[#10b981]/20"
@@ -19,7 +20,12 @@ const projects = [
         title: "SwiftRide",
         description: "A comprehensive ride-sharing platform with a microservices-style architecture. Features a React/Vite frontend with real-time map tracking using Leaflet and Socket.io-client. The core domain service is built with Java Spring Boot, managing users, captains, vehicles, and rides. Real-time driver location updates and authentication are handled by a secondary Node.js/Express server using Socket.io and MongoDB.",
         tags: ["React", "Vite", "Spring Boot", "Node.js", "Leaflet", "Socket.io", "MongoDB"],
-        image: "/images/projects/swiftride.png",
+        images: [
+            "/images/projects/swiftride/1.png",
+            "/images/projects/swiftride/2.png",
+            "/images/projects/swiftride/3.png",
+            "/images/projects/swiftride/4.png"
+        ],
         color: "from-[#3b82f6]/20 to-[#2563eb]/5",
         accent: "#3b82f6",
         borderColor: "border-[#3b82f6]/20"
@@ -28,7 +34,12 @@ const projects = [
         title: "Netflix Recommendation System",
         description: "Built a personalized Netflix movie recommendation system utilizing Python for the core machine learning algorithms. Developed a responsive front end using React.js to deliver a seamless user experience, and utilized SQLite for efficient data storage.",
         tags: ["Python", "React.js", "SQLite"],
-        image: "/images/projects/gammaflow.png",
+        images: [
+            "/images/projects/ott/1.png",
+            "/images/projects/ott/2.png",
+            "/images/projects/ott/3.png",
+            "/images/projects/ott/4.png"
+        ],
         color: "from-[#e50914]/20 to-[#b20710]/5",
         accent: "#e50914",
         borderColor: "border-[#e50914]/20"
@@ -37,12 +48,89 @@ const projects = [
         title: "Farm-Connect",
         description: "An interactive, role-based marketplace connecting farmers directly with consumers. It features distinct dashboards for buyers and sellers, robust role-based access control, and educational resources like planting guides and recipes. Leverages Three.js and Leaflet for immersive 3D graphics and interactive local farm discovery maps.",
         tags: ["Three.js", "Leaflet", "React", "Marketplace"],
-        image: "/images/projects/farmconnect.png",
+        images: [
+            "/images/projects/Farmlink/1.png",
+            "/images/projects/Farmlink/2.png",
+            "/images/projects/Farmlink/3.png",
+            "/images/projects/Farmlink/4.png",
+            "/images/projects/Farmlink/5.png",
+            "/images/projects/Farmlink/6.png",
+            "/images/projects/Farmlink/7.png",
+            "/images/projects/Farmlink/8.png",
+            "/images/projects/Farmlink/9.png"
+        ],
         color: "from-[#84cc16]/20 to-[#65a30d]/5",
         accent: "#84cc16",
         borderColor: "border-[#84cc16]/20"
     },
 ];
+
+function ProjectCarousel({ images, title, priority }: { images: string[]; title: string; priority: boolean }) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    useEffect(() => {
+        if (images.length <= 1) return;
+        const interval = setInterval(() => {
+            setCurrentIndex(prev => (prev + 1) % images.length);
+        }, 4000); // Auto transition every 4s
+        return () => clearInterval(interval);
+    }, [images]);
+
+    if (images.length === 1) {
+        return (
+            <Image
+                src={images[0]}
+                alt={title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                priority={priority}
+                className="object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
+        );
+    }
+
+    return (
+        <div className="relative w-full h-full">
+            <AnimatePresence>
+                <motion.div
+                    key={currentIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    className="absolute inset-0 w-full h-full"
+                >
+                    <Image
+                        src={images[currentIndex]}
+                        alt={`${title} screenshot ${currentIndex + 1}`}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 60vw"
+                        priority={priority}
+                        className="object-cover"
+                    />
+                </motion.div>
+            </AnimatePresence>
+
+            {/* Indicator dots */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+                {images.map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setCurrentIndex(i);
+                        }}
+                        className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                            i === currentIndex ? "bg-white w-3" : "bg-white/40 hover:bg-white/70"
+                        }`}
+                        aria-label={`Go to slide ${i + 1}`}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
 
 export default function WorkPage() {
     return (
@@ -111,22 +199,15 @@ export default function WorkPage() {
                                     </p>
                                 </div>
 
-                                {/* Project Image Container */}
                                 <div className="lg:col-span-7 order-1 lg:order-2">
-                                    <div className={`relative aspect-[16/10] rounded-3xl overflow-hidden bg-gradient-to-br ${project.color} border ${project.borderColor} p-4 md:p-8 transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-[0_0_100px_-20px_rgba(255,255,255,0.1)]`}>
-                                        {/* Image wrapper with parallax tilt effect if possible, but keeping it simple for now */}
-                                        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
-                                            <Image
-                                                src={project.image}
-                                                alt={project.title}
-                                                fill
-                                                sizes="(max-width: 1024px) 100vw, 60vw"
-                                                priority={index === 0}
-                                                className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                                            />
-                                            {/* Overlay Gradient */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                                        </div>
+                                    <div className={`relative aspect-video rounded-3xl overflow-hidden bg-gradient-to-br ${project.color} border ${project.borderColor} transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-[0_0_100px_-20px_rgba(255,255,255,0.1)]`}>
+                                        <ProjectCarousel
+                                            images={project.images}
+                                            title={project.title}
+                                            priority={index === 0}
+                                        />
+                                        {/* Overlay Gradient */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
 
                                         {/* Decorative Element */}
                                         <div
@@ -166,4 +247,3 @@ export default function WorkPage() {
         </section>
     );
 }
-
