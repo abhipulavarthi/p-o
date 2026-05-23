@@ -63,7 +63,7 @@ export default function Contact() {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="mb-4 flex items-center justify-between rounded-3xl bg-[#111] px-6 py-4 shadow-sm border border-white/10 shrink-0"
+                    className="mb-4 flex items-center justify-between rounded-3xl bg-[#111] px-6 py-4 shadow-sm border border-white/15 shrink-0"
                 >
                     <div className="flex items-center gap-2">
                         <Link href="/" className="group flex items-center justify-center rounded-full bg-[#1a1a1a] p-3 transition-colors hover:bg-[#222]">
@@ -88,12 +88,12 @@ export default function Contact() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className="relative flex flex-col rounded-3xl bg-[#111] p-6 text-white md:col-span-3 overflow-y-auto border border-[#333]"
+                        className="relative flex flex-col rounded-3xl bg-[#111] p-6 text-white md:col-span-3 overflow-y-auto border border-white/15"
                     >
                         {/* Close / Back Button */}
                         <div className="flex items-center justify-between">
                             <div className="self-start rounded-full border border-white/10 bg-[#1a1a1a] px-5 py-2 text-sm font-bold uppercase tracking-wide">
-                                <span className="text-white/70">Let's connect!</span>
+                                <span className="text-white/70">{"Let's connect!"}</span>
                             </div>
                             {status === "success" && (
                                 <motion.div
@@ -117,7 +117,7 @@ export default function Contact() {
 
                         <form onSubmit={handleSubmit} className="mt-8 md:mt-10 flex flex-col gap-6 md:gap-8 flex-grow justify-center">
                             <div className="flex flex-col gap-2">
-                                <label className="text-xl font-medium text-white/40">Hey, I'm</label>
+                                <label className="text-xl font-medium text-white/40">{"Hey, I'm"}</label>
                                 <input
                                     type="text"
                                     name="name"
@@ -125,12 +125,12 @@ export default function Contact() {
                                     onChange={handleChange}
                                     placeholder="Name"
                                     required
-                                    className="w-full border-b border-[#333] bg-transparent py-2 text-4xl md:text-5xl font-medium outline-none placeholder:text-white/5 focus:border-[#FF4D00] transition-colors text-white"
+                                    className="w-full border-b border-white/20 bg-transparent py-2 text-4xl md:text-5xl font-medium outline-none placeholder:text-white/5 focus:border-[#FF4D00] transition-colors text-white"
                                 />
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <label className="text-xl font-medium text-white/40">and I'd like to tell you that</label>
+                                <label className="text-xl font-medium text-white/40">{"and I'd like to tell you that"}</label>
                                 <textarea
                                     rows={2}
                                     name="message"
@@ -138,7 +138,7 @@ export default function Contact() {
                                     onChange={handleChange}
                                     placeholder="Message"
                                     required
-                                    className="w-full resize-none border-b border-[#333] bg-transparent py-2 text-3xl md:text-4xl font-medium outline-none placeholder:text-white/5 focus:border-[#FF4D00] transition-colors text-white"
+                                    className="w-full resize-none border-b border-white/20 bg-transparent py-2 text-3xl md:text-4xl font-medium outline-none placeholder:text-white/5 focus:border-[#FF4D00] transition-colors text-white"
                                 />
                             </div>
 
@@ -151,7 +151,7 @@ export default function Contact() {
                                     onChange={handleChange}
                                     placeholder="****@email.com"
                                     required
-                                    className="w-full border-b border-[#333] bg-transparent py-2 text-4xl md:text-5xl font-medium outline-none placeholder:text-white/5 focus:border-[#FF4D00] transition-colors text-white"
+                                    className="w-full border-b border-white/20 bg-transparent py-2 text-4xl md:text-5xl font-medium outline-none placeholder:text-white/5 focus:border-[#FF4D00] transition-colors text-white"
                                 />
                             </div>
 

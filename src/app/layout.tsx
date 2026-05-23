@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 import Background from "@/components/Background";
-
+import Preloader from "@/components/Preloader";
 
 const inter = localFont({
     src: [
@@ -34,6 +34,7 @@ export default function RootLayout({
     return (
         <html lang="en" className={inter.variable}>
             <body className="relative min-h-screen antialiased selection:bg-white/20">
+                <Preloader />
                 <Background />
 
 

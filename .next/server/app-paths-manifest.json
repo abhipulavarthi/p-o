@@ -1,5 +1,9 @@
 {
-  "/icon/[[...__metadata_id__]]/route": "app/icon/[[...__metadata_id__]]/route.js",
+  "/_not-found": "app/_not-found.js",
+  "/about/page": "app/about/page.js",
+  "/experience/page": "app/experience/page.js",
   "/contact/page": "app/contact/page.js",
-  "/page": "app/page.js"
+  "/work/page": "app/work/page.js",
+  "/page": "app/page.js",
+  "/icon/route": "app/icon/route.js"
 }

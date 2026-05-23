@@ -3,12 +3,13 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { SiGithub } from "react-icons/si";
+import Image from "next/image";
 
 const projects = [
     {
-        title: "GrenGrcy",
-        description: "A premium grocery e-commerce experience with a focus on organic produce and local artisans. Built with a robust React architecture and Redux state management.",
-        tags: ["React", "Vite", "Redux", "Tailwind"],
+        title: "GrenGcry (FreshGrocery)",
+        description: "A full-stack e-commerce application tailored for grocery shopping. The frontend is a modern SPA built with React 18, Vite, Tailwind CSS, and Redux Toolkit. The backend is a robust RESTful API built with Java and Spring Boot, featuring role-based access control, JWT authentication, and PostgreSQL/MySQL for data management.",
+        tags: ["React", "Vite", "Tailwind CSS", "Redux", "Spring Boot", "JWT"],
         image: "/images/projects/grengrcy.png",
         color: "from-[#10b981]/20 to-[#059669]/5",
         accent: "#10b981",
@@ -16,21 +17,30 @@ const projects = [
     },
     {
         title: "SwiftRide",
-        description: "Revolutionizing urban mobility with real-time tracking and futuristic ride-sharing capabilities. Powered by Socket.io and React Native.",
-        tags: ["React Native", "Node.js", "Socket.io"],
+        description: "A comprehensive ride-sharing platform with a microservices-style architecture. Features a React/Vite frontend with real-time map tracking using Leaflet and Socket.io-client. The core domain service is built with Java Spring Boot, managing users, captains, vehicles, and rides. Real-time driver location updates and authentication are handled by a secondary Node.js/Express server using Socket.io and MongoDB.",
+        tags: ["React", "Vite", "Spring Boot", "Node.js", "Leaflet", "Socket.io", "MongoDB"],
         image: "/images/projects/swiftride.png",
         color: "from-[#3b82f6]/20 to-[#2563eb]/5",
         accent: "#3b82f6",
         borderColor: "border-[#3b82f6]/20"
     },
     {
-        title: "Gamma Flow",
-        description: "Next-gen financial intelligence platform. Visualizing complex market data with predictive AI analytics and stunning D3.js visualizations.",
-        tags: ["TypeScript", "D3.js", "AI/ML"],
+        title: "Netflix Recommendation System",
+        description: "Built a personalized Netflix movie recommendation system utilizing Python for the core machine learning algorithms. Developed a responsive front end using React.js to deliver a seamless user experience, and utilized SQLite for efficient data storage.",
+        tags: ["Python", "React.js", "SQLite"],
         image: "/images/projects/gammaflow.png",
-        color: "from-[#f59e0b]/20 to-[#d97706]/5",
-        accent: "#f59e0b",
-        borderColor: "border-[#f59e0b]/20"
+        color: "from-[#e50914]/20 to-[#b20710]/5",
+        accent: "#e50914",
+        borderColor: "border-[#e50914]/20"
+    },
+    {
+        title: "Farm-Connect",
+        description: "An interactive, role-based marketplace connecting farmers directly with consumers. It features distinct dashboards for buyers and sellers, robust role-based access control, and educational resources like planting guides and recipes. Leverages Three.js and Leaflet for immersive 3D graphics and interactive local farm discovery maps.",
+        tags: ["Three.js", "Leaflet", "React", "Marketplace"],
+        image: "/images/projects/farmconnect.png",
+        color: "from-[#84cc16]/20 to-[#65a30d]/5",
+        accent: "#84cc16",
+        borderColor: "border-[#84cc16]/20"
     },
 ];
 
@@ -99,27 +109,20 @@ export default function WorkPage() {
                                     <p className="text-lg md:text-xl text-white/50 leading-relaxed mb-10 max-w-lg">
                                         {project.description}
                                     </p>
-
-                                    <Link
-                                        href="#"
-                                        className="inline-flex items-center gap-4 py-4 px-8 rounded-2xl bg-white text-black font-bold transition-all hover:scale-105 active:scale-95"
-                                    >
-                                        <span>View Case Study</span>
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M7 17l10-10M7 7h10v10" />
-                                        </svg>
-                                    </Link>
                                 </div>
 
                                 {/* Project Image Container */}
                                 <div className="lg:col-span-7 order-1 lg:order-2">
-                                    <div className={`relative aspect-[16/10] rounded-[2rem] overflow-hidden bg-gradient-to-br ${project.color} border ${project.borderColor} p-4 md:p-8 transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-[0_0_100px_-20px_rgba(255,255,255,0.1)]`}>
+                                    <div className={`relative aspect-[16/10] rounded-3xl overflow-hidden bg-gradient-to-br ${project.color} border ${project.borderColor} p-4 md:p-8 transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-[0_0_100px_-20px_rgba(255,255,255,0.1)]`}>
                                         {/* Image wrapper with parallax tilt effect if possible, but keeping it simple for now */}
                                         <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
-                                            <img
+                                            <Image
                                                 src={project.image}
                                                 alt={project.title}
-                                                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                                fill
+                                                sizes="(max-width: 1024px) 100vw, 60vw"
+                                                priority={index === 0}
+                                                className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                             />
                                             {/* Overlay Gradient */}
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -134,10 +137,7 @@ export default function WorkPage() {
                                 </div>
                             </div>
 
-                            {/* Background Number */}
-                            <span className="absolute -left-12 -top-12 text-[15rem] font-black text-white/[0.02] select-none pointer-events-none hidden xl:block">
-                                0{index + 1}
-                            </span>
+
                         </motion.div>
                     ))}
                 </div>
@@ -148,14 +148,14 @@ export default function WorkPage() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="py-24 rounded-[3rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl"
+                        className="py-24 rounded-3xl bg-white/[0.02] border border-white/15 backdrop-blur-3xl"
                     >
                         <h2 className="text-4xl md:text-5xl font-bold mb-8">Have a project in mind?</h2>
                         <Link
                             href="/contact"
                             className="inline-flex items-center gap-3 text-2xl font-bold hover:gap-6 transition-all underline decoration-white/20 underline-offset-8 hover:decoration-white"
                         >
-                            Let's build something great together
+                            {"Let's build something great together"}
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>

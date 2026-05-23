@@ -27,13 +27,13 @@ export default function Home() {
                         <Link href="/about" className="group flex items-center justify-center rounded-2xl bg-[#1a1a1a] transition-colors hover:bg-[#222]">
                             <span className="text-[10px] font-bold uppercase tracking-widest text-white/70 transition-colors group-hover:text-white">About</span>
                         </Link>
-                        <div className="flex items-center justify-center rounded-2xl bg-[#1a1a1a] transition-colors hover:bg-[#222]">
-                            <a href="#blog" className="text-[10px] font-bold uppercase tracking-widest text-white/70 hover:text-white">Blog</a>
-                        </div>
+                        <Link href="/experience" className="group flex items-center justify-center rounded-2xl bg-[#1a1a1a] transition-colors hover:bg-[#222]">
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-white/70 transition-colors group-hover:text-white">Experience</span>
+                        </Link>
                     </div>
 
                     {/* Off-White Block - Spans 1 col, 2 rows */}
-                    <Link href="/contact" className="group flex flex-col justify-between rounded-3xl bg-[#f5f5f5] p-6 text-black md:col-span-1 md:row-span-2 transition-all hover:scale-[1.02] active:scale-[0.98] border border-white hover:border-[#FF4D00]/50">
+                    <Link href="/contact" className="group flex flex-col justify-between rounded-3xl bg-[#f5f5f5] p-6 text-black md:col-span-1 md:row-span-2 transition-all hover:scale-[1.02] active:scale-[0.98]">
                         <div className="flex justify-end">
                             <span className="text-6xl text-[#FF4D00] group-hover:rotate-12 transition-transform duration-300">*</span>
                         </div>
@@ -48,7 +48,7 @@ export default function Home() {
                         href="/resume.png"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex items-center justify-center rounded-3xl bg-[#111] py-6 transition-colors hover:bg-[#1a1a1a] active:bg-[#1a1a1a] md:col-span-1 border border-transparent hover:border-[#333]"
+                        className="group flex items-center justify-center rounded-3xl bg-[#111] py-6 transition-colors hover:bg-[#1a1a1a] active:bg-[#1a1a1a] md:col-span-1"
                     >
                         <span className="text-sm font-medium uppercase tracking-widest text-white/70 transition-colors group-hover:text-white group-active:text-white">Resume</span>
                     </a>

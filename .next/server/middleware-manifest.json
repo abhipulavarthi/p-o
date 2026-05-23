@@ -2,20 +2,21 @@
   "sortedMiddleware": [],
   "middleware": {},
   "functions": {
-    "/icon/[[...__metadata_id__]]/route": {
+    "/icon/route": {
       "files": [
         "server/middleware-build-manifest.js",
         "server/middleware-react-loadable-manifest.js",
         "server/next-font-manifest.js",
+        "prerender-manifest.js",
         "server/edge-runtime-webpack.js",
-        "server/app/icon/[[...__metadata_id__]]/route.js"
+        "server/app/icon/route.js"
       ],
-      "name": "app/icon/[[...__metadata_id__]]/route",
-      "page": "/icon/[[...__metadata_id__]]/route",
+      "name": "app/icon/route",
+      "page": "/icon/route",
       "matchers": [
         {
-          "regexp": "^/icon(?:/(?<__metadata_id__>.+?))?$",
-          "originalSource": "/icon/[[...__metadata_id__]]"
+          "regexp": "^/icon$",
+          "originalSource": "/icon"
         }
       ],
       "wasm": [
