@@ -86,7 +86,7 @@ export default function Home() {
                     {/* Pattern Block - Spans 1 col */}
                     <div className="relative overflow-hidden rounded-3xl bg-[#111] md:col-span-1 min-h-[220px]">
                         <Image
-                            src="/images/fish.gif"
+                            src="/p-o/images/fish.gif"
                             alt="Fish animation"
                             fill
                             className="object-cover scale-[1.8]"
@@ -97,7 +97,7 @@ export default function Home() {
                     {/* Empty/Placeholder Block - Spans 1 col (Under Projects) */}
                     <div className="hidden rounded-3xl bg-[#111] md:col-span-1 md:block relative overflow-hidden">
                         <Image
-                            src="/images/abhi.jpg"
+                            src="/p-o/images/abhi.jpg"
                             alt="Abhi Pulavarthi"
                             fill
                             className="object-cover"

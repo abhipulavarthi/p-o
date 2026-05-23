@@ -8,7 +8,6 @@ const nextConfig = {
     },
 
     basePath: '/p-o',
-    assetPrefix: '/p-o/',
 }
 
 module.exports = nextConfig

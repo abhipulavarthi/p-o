@@ -22,7 +22,7 @@ export default function SeePage() {
             {/* The full screen gif */}
             <div className="absolute inset-0 w-full h-full">
                 <Image
-                    src="/images/sea.gif"
+                    src="/p-o/images/sea.gif"
                     alt="Sea animation"
                     fill
                     className="object-cover"

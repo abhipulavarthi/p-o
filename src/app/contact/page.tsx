@@ -170,7 +170,7 @@ export default function Contact() {
                     {/* Right Graphic - Spans 2 cols */}
                     <div className="graphic-card opacity-0 relative hidden md:block overflow-hidden rounded-3xl bg-[#B8C0EC] md:col-span-2">
                         <Image
-                            src="/images/contact-collage.jpg"
+                            src="/p-o/images/contact-collage.jpg"
                             alt="Creative collage"
                             fill
                             className="object-cover"

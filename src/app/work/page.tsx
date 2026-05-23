@@ -11,10 +11,10 @@ const projects = [
         description: "A comprehensive ride-sharing platform with a microservices-style architecture. Features a React/Vite frontend with real-time map tracking using Leaflet and Socket.io-client. The core domain service is built with Java Spring Boot, managing users, captains, vehicles, and rides. Real-time driver location updates and authentication are handled by a secondary Node.js/Express server using Socket.io and MongoDB.",
         tags: ["React", "Vite", "Spring Boot", "Node.js", "Leaflet", "Socket.io", "MongoDB"],
         images: [
-            "/images/projects/swiftride/1.png",
-            "/images/projects/swiftride/2.png",
-            "/images/projects/swiftride/3.png",
-            "/images/projects/swiftride/4.png"
+            "/p-o/images/projects/swiftride/1.png",
+            "/p-o/images/projects/swiftride/2.png",
+            "/p-o/images/projects/swiftride/3.png",
+            "/p-o/images/projects/swiftride/4.png"
         ],
         color: "from-[#3b82f6]/20 to-[#2563eb]/5",
         accent: "#3b82f6",
@@ -25,10 +25,10 @@ const projects = [
         description: "Built a personalized Netflix movie recommendation system utilizing Python for the core machine learning algorithms. Developed a responsive front end using React.js to deliver a seamless user experience, and utilized SQLite for efficient data storage.",
         tags: ["Python", "React.js", "SQLite"],
         images: [
-            "/images/projects/ott/1.png",
-            "/images/projects/ott/2.png",
-            "/images/projects/ott/3.png",
-            "/images/projects/ott/4.png"
+            "/p-o/images/projects/ott/1.png",
+            "/p-o/images/projects/ott/2.png",
+            "/p-o/images/projects/ott/3.png",
+            "/p-o/images/projects/ott/4.png"
         ],
         color: "from-[#e50914]/20 to-[#b20710]/5",
         accent: "#e50914",
@@ -39,15 +39,15 @@ const projects = [
         description: "An interactive, role-based marketplace connecting farmers directly with consumers. It features distinct dashboards for buyers and sellers, robust role-based access control, and educational resources like planting guides and recipes. Leverages Three.js and Leaflet for immersive 3D graphics and interactive local farm discovery maps.",
         tags: ["Three.js", "Leaflet", "React", "Marketplace"],
         images: [
-            "/images/projects/Farmlink/1.png",
-            "/images/projects/Farmlink/2.png",
-            "/images/projects/Farmlink/3.png",
-            "/images/projects/Farmlink/4.png",
-            "/images/projects/Farmlink/5.png",
-            "/images/projects/Farmlink/6.png",
-            "/images/projects/Farmlink/7.png",
-            "/images/projects/Farmlink/8.png",
-            "/images/projects/Farmlink/9.png"
+            "/p-o/images/projects/Farmlink/1.png",
+            "/p-o/images/projects/Farmlink/2.png",
+            "/p-o/images/projects/Farmlink/3.png",
+            "/p-o/images/projects/Farmlink/4.png",
+            "/p-o/images/projects/Farmlink/5.png",
+            "/p-o/images/projects/Farmlink/6.png",
+            "/p-o/images/projects/Farmlink/7.png",
+            "/p-o/images/projects/Farmlink/8.png",
+            "/p-o/images/projects/Farmlink/9.png"
         ],
         color: "from-[#84cc16]/20 to-[#65a30d]/5",
         accent: "#84cc16",
