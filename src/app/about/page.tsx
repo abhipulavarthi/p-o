@@ -1,10 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import LogoLoop from "@/components/LogoLoop";
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiMongodb, SiPostgresql, SiGithub, SiMysql, SiJavascript, SiFigma, SiDocker, SiPython, SiC, SiSpringboot, SiPostman, SiAmazonwebservices, SiKubernetes, SiThreedotjs, SiSass, SiGreensock } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
+import gsap from "gsap";
 
 const techLogos = [
     { node: <SiReact className="text-[#61DAFB]" />, title: "React" },
@@ -32,17 +33,41 @@ const techLogos = [
 ];
 
 export default function AboutPage() {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+        
+        const header = containerRef.current.querySelector(".header-card");
+        if (header) {
+            gsap.fromTo(header,
+                { opacity: 0, y: -20 },
+                { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.1 }
+            );
+        }
+
+        const gridItems = containerRef.current.querySelectorAll(".bento-grid > div");
+        if (gridItems.length > 0) {
+            gsap.fromTo(gridItems,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.06,
+                    ease: "power3.out",
+                    delay: 0.2
+                }
+            );
+        }
+    }, []);
+
     return (
-        <section className="min-h-screen w-full bg-[#050505] p-4 font-sans text-white md:p-6">
+        <section ref={containerRef} className="min-h-screen w-full bg-[#050505] p-4 font-sans text-white md:p-6">
             <div className="mx-auto h-full w-full max-w-[1800px]">
 
                 {/* Navigation / Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="mb-4 flex items-center justify-between rounded-3xl bg-[#111] px-6 py-6 shadow-sm border border-white/15"
-                >
+                <div className="header-card opacity-0 mb-4 flex items-center justify-between rounded-3xl bg-[#111] px-6 py-6 shadow-sm border border-white/15">
                     <div className="flex items-center gap-2">
                         <Link href="/" className="group flex items-center justify-center rounded-full bg-[#1a1a1a] p-3 transition-colors hover:bg-[#222]">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-1">
@@ -54,18 +79,13 @@ export default function AboutPage() {
                     <div className="hidden md:block">
                         <span className="text-sm font-medium text-white/40">Abhinav Pulavarthi</span>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Bento Grid Layout */}
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                <div className="bento-grid grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
 
                     {/* Main Introduction - Large Block */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="col-span-1 md:col-span-2 lg:col-span-2 row-span-2 rounded-3xl bg-[#111] p-8 flex flex-col justify-between min-h-[400px] shadow-sm border border-white/15"
-                    >
+                    <div className="opacity-0 col-span-1 md:col-span-2 lg:col-span-2 row-span-2 rounded-3xl bg-[#111] p-8 flex flex-col justify-between min-h-[400px] shadow-sm border border-white/15">
                         <div className="flex flex-col h-full justify-between">
                             <div>
                                 <h2 className="text-2xl font-medium leading-tight text-white md:text-4xl">
@@ -81,17 +101,11 @@ export default function AboutPage() {
                                     </p>
                                 </div>
                             </div>
-
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Photo / Visual Block */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="col-span-1 md:col-span-1 lg:col-span-2 row-span-1 rounded-3xl bg-[#111] overflow-hidden relative min-h-[300px] flex items-center justify-center shadow-sm border border-white/15"
-                    >
+                    <div className="opacity-0 col-span-1 md:col-span-1 lg:col-span-2 row-span-1 rounded-3xl bg-[#111] overflow-hidden relative min-h-[300px] flex items-center justify-center shadow-sm border border-white/15">
                         {/* Abstract Gradient Background */}
                         <div className="absolute inset-0 bg-gradient-to-br from-[#111] via-[#1a1a1a] to-[#050505] opacity-50"></div>
                         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
@@ -113,15 +127,10 @@ export default function AboutPage() {
                         <div className="absolute bottom-6 left-6 z-10">
                             <p className="text-sm uppercase tracking-widest text-white/40">Skills</p>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Stats Block - Experience */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                        className="col-span-1 rounded-3xl bg-[#111] p-6 flex flex-col justify-between min-h-[200px] shadow-sm border border-white/15"
-                    >
+                    <div className="opacity-0 col-span-1 rounded-3xl bg-[#111] p-6 flex flex-col justify-between min-h-[200px] shadow-sm border border-white/15">
                         <div className="h-10 w-10 text-[#FF4D00]">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5 9.5 9.75 12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z" /></svg>
                         </div>
@@ -129,15 +138,10 @@ export default function AboutPage() {
                             <span className="text-4xl font-bold text-white">2</span>
                             <p className="text-sm text-white/40 mt-1 uppercase tracking-wider">Certifications</p>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Stats Block - Projects */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
-                        className="col-span-1 rounded-3xl bg-[#111] p-6 flex flex-col justify-between min-h-[200px] shadow-sm border border-white/15"
-                    >
+                    <div className="opacity-0 col-span-1 rounded-3xl bg-[#111] p-6 flex flex-col justify-between min-h-[200px] shadow-sm border border-white/15">
                         <div className="h-10 w-10 text-[#FF4D00]">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
                         </div>
@@ -145,15 +149,10 @@ export default function AboutPage() {
                             <span className="text-4xl font-bold text-white">4</span>
                             <p className="text-sm text-white/40 mt-1 uppercase tracking-wider">Projects</p>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* CTA Block */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
-                        className="col-span-1 md:col-span-3 lg:col-span-4 rounded-3xl bg-[#FF4D00] p-8 md:p-12 text-black flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm border border-white/15"
-                    >
+                    <div className="opacity-0 col-span-1 md:col-span-3 lg:col-span-4 rounded-3xl bg-[#FF4D00] p-8 md:p-12 text-black flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm border border-white/15">
                         <div>
                             <h3 className="text-3xl font-bold tracking-tighter md:text-5xl">{"Let's build something great."}</h3>
                             <p className="mt-2 text-black/60 font-medium">Open for collaborations and new opportunities.</p>
@@ -161,7 +160,7 @@ export default function AboutPage() {
                         <Link href="/contact" className="rounded-full bg-black px-8 py-4 text-lg font-bold uppercase tracking-widest text-white transition-transform hover:scale-105 active:scale-95">
                             Get in touch
                         </Link>
-                    </motion.div>
+                    </div>
 
                 </div>
             </div>

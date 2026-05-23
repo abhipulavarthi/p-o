@@ -1,22 +1,47 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { SiCisco, SiAmazonwebservices } from "react-icons/si";
-import { FaGraduationCap, FaBriefcase, FaAward, FaCheckCircle, FaUniversity } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
+import gsap from "gsap";
 
 export default function ExperiencePage() {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+        
+        const header = containerRef.current.querySelector(".header-card");
+        if (header) {
+            gsap.fromTo(header,
+                { opacity: 0, y: -20 },
+                { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.1 }
+            );
+        }
+
+        const contentItems = containerRef.current.querySelectorAll(".experience-content-item");
+        if (contentItems.length > 0) {
+            gsap.fromTo(contentItems,
+                { opacity: 0, y: 35 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.05,
+                    ease: "power3.out",
+                    delay: 0.2
+                }
+            );
+        }
+    }, []);
+
     return (
-        <section className="min-h-screen w-full bg-[#050505] p-4 font-sans text-white md:p-6 overflow-x-hidden">
+        <section ref={containerRef} className="min-h-screen w-full bg-[#050505] p-4 font-sans text-white md:p-6 overflow-x-hidden">
             <div className="mx-auto h-full w-full max-w-[1800px]">
 
                 {/* Navigation / Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="mb-6 flex items-center justify-between rounded-3xl bg-[#111] px-6 py-6 shadow-sm border border-white/15"
-                >
+                <div className="header-card opacity-0 mb-6 flex items-center justify-between rounded-3xl bg-[#111] px-6 py-6 shadow-sm border border-white/15">
                     <div className="flex items-center gap-2">
                         <Link href="/" className="group flex items-center justify-center rounded-full bg-[#1a1a1a] p-3 transition-colors hover:bg-[#222]">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-1">
@@ -28,25 +53,20 @@ export default function ExperiencePage() {
                     <div className="hidden md:block">
                         <span className="text-sm font-medium text-white/40">Abhinav Pulavarthi</span>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Grid Layout */}
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
 
                     {/* Left Column: Experience (Spans 7 cols on large screens) */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="lg:col-span-7 flex flex-col gap-6"
-                    >
+                    <div className="lg:col-span-7 flex flex-col gap-6">
                         {/* Section Header */}
-                        <div className="flex items-center gap-3 px-2">
+                        <div className="experience-content-item opacity-0 flex items-center gap-3 px-2">
                             <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Professional Experience</h2>
                         </div>
 
                         {/* Experience Card */}
-                        <div className="relative rounded-3xl bg-[#111] p-6 md:p-8 border border-white/15 shadow-xl overflow-hidden group transition-all hover:border-white/30">
+                        <div className="experience-content-item opacity-0 relative rounded-3xl bg-[#111] p-6 md:p-8 border border-white/15 shadow-xl overflow-hidden group transition-all hover:border-white/30">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#FF4D00]/10 to-transparent rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none group-hover:opacity-70 transition-opacity opacity-40"></div>
                             
                             <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
@@ -62,7 +82,6 @@ export default function ExperiencePage() {
                                     </div>
                                     <p className="text-sm italic text-white/60 mt-1 md:ml-14">Diploma Internship Program</p>
                                 </div>
-
                             </div>
 
                             {/* Bullet points */}
@@ -93,23 +112,18 @@ export default function ExperiencePage() {
                                 </li>
                             </ul>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Right Column: Education & Certifications (Spans 5 cols on large screens) */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="lg:col-span-5 flex flex-col gap-6"
-                    >
+                    <div className="lg:col-span-5 flex flex-col gap-6">
                         {/* Education Section Header */}
-                        <div className="flex items-center gap-3 px-2">
+                        <div className="experience-content-item opacity-0 flex items-center gap-3 px-2">
                             <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Education</h2>
                         </div>
 
                         {/* Education Cards */}
                         <div className="grid grid-cols-1 gap-4">
-                            <div className="rounded-3xl bg-[#111] p-6 border border-white/15 shadow-md transition-all hover:border-white/30 group">
+                            <div className="experience-content-item opacity-0 rounded-3xl bg-[#111] p-6 border border-white/15 shadow-md transition-all hover:border-white/30 group">
                                 <div className="flex items-start gap-4">
                                     <div>
                                         <h3 className="text-xl font-bold text-white tracking-tight">KL University</h3>
@@ -118,7 +132,7 @@ export default function ExperiencePage() {
                                 </div>
                             </div>
 
-                            <div className="rounded-3xl bg-[#111] p-6 border border-white/15 shadow-md transition-all hover:border-white/30 group">
+                            <div className="experience-content-item opacity-0 rounded-3xl bg-[#111] p-6 border border-white/15 shadow-md transition-all hover:border-white/30 group">
                                 <div className="flex items-start gap-4">
                                     <div>
                                         <h3 className="text-xl font-bold text-white tracking-tight">Swarnandhra College of Engineering and Technology</h3>
@@ -129,13 +143,13 @@ export default function ExperiencePage() {
                         </div>
 
                         {/* Certifications Section Header */}
-                        <div className="flex items-center gap-3 px-2 mt-4">
+                        <div className="experience-content-item opacity-0 flex items-center gap-3 px-2 mt-4">
                             <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Certifications</h2>
                         </div>
 
                         {/* Certifications Cards */}
                         <div className="grid grid-cols-1 gap-4">
-                            <div className="rounded-3xl bg-[#111] p-6 border border-white/15 shadow-md transition-all hover:border-white/30 flex items-center justify-between gap-4 group">
+                            <div className="experience-content-item opacity-0 rounded-3xl bg-[#111] p-6 border border-white/15 shadow-md transition-all hover:border-white/30 flex items-center justify-between gap-4 group">
                                 <div className="flex items-center gap-4">
                                     <div className="p-3 rounded-2xl bg-[#1a1a1a] border border-white/15 text-[#f59e0b] group-hover:scale-110 transition-transform">
                                         <SiAmazonwebservices className="h-6 w-6" />
@@ -148,7 +162,7 @@ export default function ExperiencePage() {
                                 <FaCheckCircle className="h-5 w-5 text-white shrink-0 opacity-80" />
                             </div>
 
-                            <div className="rounded-3xl bg-[#111] p-6 border border-white/15 shadow-md transition-all hover:border-white/30 flex items-center justify-between gap-4 group">
+                            <div className="experience-content-item opacity-0 rounded-3xl bg-[#111] p-6 border border-white/15 shadow-md transition-all hover:border-white/30 flex items-center justify-between gap-4 group">
                                 <div className="flex items-center gap-4">
                                     <div className="p-3 rounded-2xl bg-[#1a1a1a] border border-white/15 text-[#049fd9] group-hover:scale-110 transition-transform">
                                         <SiCisco className="h-6 w-6" />
@@ -161,11 +175,9 @@ export default function ExperiencePage() {
                                 <FaCheckCircle className="h-5 w-5 text-white shrink-0 opacity-80" />
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                 </div>
-
-
 
             </div>
         </section>

@@ -1,21 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { SiGithub } from "react-icons/si";
 import Image from "next/image";
+import gsap from "gsap";
 
 const projects = [
-    {
-        title: "GrenGcry (FreshGrocery)",
-        description: "A full-stack e-commerce application tailored for grocery shopping. The frontend is a modern SPA built with React 18, Vite, Tailwind CSS, and Redux Toolkit. The backend is a robust RESTful API built with Java and Spring Boot, featuring role-based access control, JWT authentication, and PostgreSQL/MySQL for data management.",
-        tags: ["React", "Vite", "Tailwind CSS", "Redux", "Spring Boot", "JWT"],
-        images: ["/images/projects/grengrcy.png"],
-        color: "from-[#10b981]/20 to-[#059669]/5",
-        accent: "#10b981",
-        borderColor: "border-[#10b981]/20"
-    },
     {
         title: "SwiftRide",
         description: "A comprehensive ride-sharing platform with a microservices-style architecture. Features a React/Vite frontend with real-time map tracking using Leaflet and Socket.io-client. The core domain service is built with Java Spring Boot, managing users, captains, vehicles, and rides. Real-time driver location updates and authentication are handled by a secondary Node.js/Express server using Socket.io and MongoDB.",
@@ -91,25 +81,23 @@ function ProjectCarousel({ images, title, priority }: { images: string[]; title:
 
     return (
         <div className="relative w-full h-full">
-            <AnimatePresence>
-                <motion.div
-                    key={currentIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className="absolute inset-0 w-full h-full"
+            {images.map((img, i) => (
+                <div
+                    key={img}
+                    className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+                        i === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+                    }`}
                 >
                     <Image
-                        src={images[currentIndex]}
-                        alt={`${title} screenshot ${currentIndex + 1}`}
+                        src={img}
+                        alt={`${title} screenshot ${i + 1}`}
                         fill
                         sizes="(max-width: 1024px) 100vw, 60vw"
-                        priority={priority}
+                        priority={priority && i === 0}
                         className="object-cover"
                     />
-                </motion.div>
-            </AnimatePresence>
+                </div>
+            ))}
 
             {/* Indicator dots */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
@@ -133,16 +121,63 @@ function ProjectCarousel({ images, title, priority }: { images: string[]; title:
 }
 
 export default function WorkPage() {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        const headerTitle = containerRef.current.querySelector(".header-title");
+        if (headerTitle) {
+            gsap.fromTo(headerTitle,
+                { opacity: 0, x: -30 },
+                { opacity: 1, x: 0, duration: 0.7, ease: "power2.out", delay: 0.1 }
+            );
+        }
+
+        const headerDesc = containerRef.current.querySelector(".header-desc");
+        if (headerDesc) {
+            gsap.fromTo(headerDesc,
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", delay: 0.2 }
+            );
+        }
+
+        const projectItems = containerRef.current.querySelectorAll(".project-item");
+        if (projectItems.length > 0) {
+            gsap.fromTo(projectItems,
+                { opacity: 0, y: 55 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: "power3.out",
+                    delay: 0.25
+                }
+            );
+        }
+
+        const footerCta = containerRef.current.querySelector(".footer-cta");
+        if (footerCta) {
+            gsap.fromTo(footerCta,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    delay: 0.5
+                }
+            );
+        }
+    }, []);
+
     return (
-        <section className="min-h-screen w-full bg-[#050505] p-6 lg:p-12 font-sans text-white">
+        <section ref={containerRef} className="min-h-screen w-full bg-[#050505] p-6 lg:p-12 font-sans text-white">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
                 <header className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6 }}
-                    >
+                    <div className="header-title opacity-0">
                         <Link href="/" className="mb-8 inline-flex items-center gap-2 text-white/50 transition-colors hover:text-white group">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-1">
                                 <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
@@ -153,28 +188,19 @@ export default function WorkPage() {
                             SELECTED <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">WORKS</span>
                         </h1>
-                    </motion.div>
+                    </div>
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="max-w-md text-xl text-white/40 font-medium leading-relaxed"
-                    >
+                    <p className="header-desc opacity-0 max-w-md text-xl text-white/40 font-medium leading-relaxed">
                         A collection of digital experiences crafted with precision, blending aesthetic beauty with functional excellence.
-                    </motion.p>
+                    </p>
                 </header>
 
                 {/* Projects Section */}
                 <div className="space-y-32 md:space-y-48">
                     {projects.map((project, index) => (
-                        <motion.div
+                        <div
                             key={project.title}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            className="group relative"
+                            className="project-item opacity-0 group relative"
                         >
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                                 {/* Project Info */}
@@ -217,20 +243,13 @@ export default function WorkPage() {
                                     </div>
                                 </div>
                             </div>
-
-
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 
                 {/* Footer CTA */}
-                <footer className="mt-48 mb-24 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="py-24 rounded-3xl bg-white/[0.02] border border-white/15 backdrop-blur-3xl"
-                    >
+                <footer className="footer-cta opacity-0 mt-48 mb-24 text-center">
+                    <div className="py-24 rounded-3xl bg-white/[0.02] backdrop-blur-3xl">
                         <h2 className="text-4xl md:text-5xl font-bold mb-8">Have a project in mind?</h2>
                         <Link
                             href="/contact"
@@ -241,7 +260,7 @@ export default function WorkPage() {
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </Link>
-                    </motion.div>
+                    </div>
                 </footer>
             </div>
         </section>

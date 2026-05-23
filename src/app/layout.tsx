@@ -22,7 +22,7 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "Abhi",
+    title: "Abhi Pulavarthi",
     description: "Personal portfolio of Abhi Pulavarthi, a Designer & Frontend Engineer based in India.",
 };
 

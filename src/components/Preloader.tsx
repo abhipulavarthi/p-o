@@ -1,30 +1,34 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import gsap from "gsap";
 
 export default function Preloader() {
     const pathname = usePathname();
     const router = useRouter();
-    const controls = useAnimation();
+    const overlayRef = useRef<HTMLDivElement>(null);
     const [isPointerEventsNone, setIsPointerEventsNone] = useState(false);
     const [bgClass, setBgClass] = useState(pathname === "/" ? "bg-black" : "bg-white");
 
     // Run when the page loads or route changes (reveals the new page)
     useEffect(() => {
         setBgClass(pathname === "/" ? "bg-black" : "bg-white");
-        const reveal = async () => {
-            setIsPointerEventsNone(false);
-            // Assumes overlay is currently covering the screen (y: 0)
-            await controls.start({ 
-                y: "-100%", 
-                transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 } 
-            });
-            setIsPointerEventsNone(true);
-        };
-        reveal();
-    }, [pathname, controls]);
+        if (overlayRef.current) {
+            gsap.killTweensOf(overlayRef.current);
+            gsap.fromTo(overlayRef.current,
+                { yPercent: 0 },
+                {
+                    yPercent: -100,
+                    duration: 0.8,
+                    ease: "power4.inOut",
+                    delay: 0.1,
+                    onStart: () => setIsPointerEventsNone(false),
+                    onComplete: () => setIsPointerEventsNone(true)
+                }
+            );
+        }
+    }, [pathname]);
 
     // Intercept link clicks to cover the old page before navigating
     useEffect(() => {
@@ -48,29 +52,33 @@ export default function Preloader() {
             const isTargetHome = href === "/";
             setBgClass(isTargetHome ? "bg-black" : "bg-white");
 
-            // 1. Snap overlay to the bottom instantly
-            controls.set({ y: "100%" });
-            
-            // 2. Animate up to cover the screen
-            controls.start({ 
-                y: "0%", 
-                transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
-            }).then(() => {
-                // 3. Navigate to the new page once fully covered
-                router.push(href);
-            });
+            if (overlayRef.current) {
+                gsap.killTweensOf(overlayRef.current);
+                // 1. Snap overlay to the bottom instantly, then animate up to cover the screen
+                gsap.fromTo(overlayRef.current,
+                    { yPercent: 100 },
+                    {
+                        yPercent: 0,
+                        duration: 0.8,
+                        ease: "power4.inOut",
+                        onComplete: () => {
+                            router.push(href);
+                        }
+                    }
+                );
+            }
         };
 
         // Use capture phase so we intercept before React/Next.js does
         document.addEventListener("click", handleClick, { capture: true });
         return () => document.removeEventListener("click", handleClick, { capture: true });
-    }, [pathname, router, controls]);
+    }, [pathname, router]);
 
     return (
-        <motion.div
+        <div
+            ref={overlayRef}
             className={`fixed inset-0 z-[9999] ${bgClass} ${isPointerEventsNone ? "pointer-events-none" : "pointer-events-auto"}`}
-            initial={{ y: 0 }}
-            animate={controls}
+            style={{ transform: "translateY(0%)" }}
         />
     );
 }

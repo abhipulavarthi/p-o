@@ -1,13 +1,34 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { SiLinkedin, SiCredly, SiInstagram, SiGithub } from "react-icons/si";
-import MagnetLines from "@/components/MagnetLines";
+import gsap from "gsap";
 
 export default function Home() {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+        
+        const gridItems = containerRef.current.querySelectorAll(".grid > div, .grid > a");
+        
+        gsap.fromTo(gridItems, 
+            { opacity: 0, y: 40 },
+            { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.8, 
+                stagger: 0.05, 
+                ease: "power3.out",
+                delay: 0.2
+            }
+        );
+    }, []);
+
     return (
-        <section className="h-screen w-screen bg-[#050505] p-4 font-sans text-white md:p-6 overflow-hidden">
+        <section ref={containerRef} className="h-screen w-screen bg-[#050505] p-4 font-sans text-white md:p-6 overflow-hidden">
             <div className="mx-auto h-full w-full max-w-[1800px]">
                 <div className="grid h-full w-full grid-cols-1 gap-3 md:grid-cols-5 md:grid-rows-[auto_1fr_1fr] md:gap-4">
                     {/* --- ROW 1 --- */}
@@ -45,36 +66,31 @@ export default function Home() {
                     </Link>
 
                     {/* Resume Link - Spans 1 col */}
-                    <a
-                        href="/resume.png"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center justify-center rounded-3xl bg-[#111] py-6 transition-colors hover:bg-[#1a1a1a] active:bg-[#1a1a1a] md:col-span-1"
+                    <Link
+                        href="/see"
+                        className="group flex items-center justify-center rounded-3xl bg-[#111] py-6 transition-colors hover:bg-[#1a1a1a] active:bg-[#1a1a1a] md:col-span-1 text-center"
                     >
-                        <span className="text-sm font-medium uppercase tracking-widest text-white/70 transition-colors group-hover:text-white group-active:text-white">Resume</span>
-                    </a>
+                        <span className="text-sm font-medium uppercase tracking-widest text-white/70 transition-colors group-hover:text-white group-active:text-white">See</span>
+                    </Link>
 
 
                     {/* --- ROW 2 --- */}
 
                     {/* Join List - Spans 2 cols */}
                     <div className="flex flex-col justify-end rounded-3xl bg-[#111] p-8 md:col-span-2">
-                        <h2 className="text-3xl font-medium leading-tight tracking-tight md:text-5xl lg:text-6xl">
-                            Join the list — we love meeting new people.
+                        <h2 className="text-4xl font-medium leading-tight tracking-tight md:text-7xl lg:text-8xl">
+                            Love meeting new people.
                         </h2>
                     </div>
 
                     {/* Pattern Block - Spans 1 col */}
-                    <div className="relative overflow-hidden rounded-3xl bg-[#FF4D00] md:col-span-1 min-h-[220px]">
-                        <MagnetLines
-                            rows={14}
-                            columns={19}
-                            containerSize="100%"
-                            lineColor="#000000"
-                            lineWidth="5px"
-                            lineHeight="30px"
-                            baseAngle={65}
-                            className="absolute inset-0 w-full h-full opacity-90"
+                    <div className="relative overflow-hidden rounded-3xl bg-[#111] md:col-span-1 min-h-[220px]">
+                        <Image
+                            src="/images/fish.gif"
+                            alt="Fish animation"
+                            fill
+                            className="object-cover scale-[1.8]"
+                            unoptimized
                         />
                     </div>
 
@@ -87,33 +103,36 @@ export default function Home() {
                     {/* Social Icons Grid - Spans 2 cols */}
                     <div className="grid grid-cols-2 grid-rows-2 gap-3 md:col-span-2">
                         <a href="https://www.linkedin.com/in/abhipulavarthi" target="_blank" rel="noopener noreferrer" className="group relative flex items-center justify-center rounded-3xl bg-[#111] p-4 transition-colors hover:bg-[#1a1a1a] overflow-hidden">
-                            <span className="absolute bottom-4 left-4 text-lg font-bold transition-transform duration-300 group-hover:translate-y-10 group-hover:opacity-0">LinkedIn</span>
+                            <span className="absolute bottom-6 left-6 text-2xl font-bold transition-transform duration-300 group-hover:translate-y-12 group-hover:opacity-0">LinkedIn</span>
                             <SiLinkedin className="h-12 w-12 text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110" />
                         </a>
                         <a href="https://www.credly.com/users/abhi-pulavarthi" target="_blank" rel="noopener noreferrer" className="group relative flex items-center justify-center rounded-3xl bg-[#111] p-4 transition-colors hover:bg-[#1a1a1a] overflow-hidden">
-                            <span className="absolute bottom-4 left-4 text-lg font-bold transition-transform duration-300 group-hover:translate-y-10 group-hover:opacity-0">Credly</span>
+                            <span className="absolute bottom-6 left-6 text-2xl font-bold transition-transform duration-300 group-hover:translate-y-12 group-hover:opacity-0">Credly</span>
                             <SiCredly className="h-12 w-12 text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110" />
                         </a>
                         <a href="https://www.instagram.com/abhipulavarthi?igsh=aW14ZnphdTc3Z29p&utm_source=qr" target="_blank" rel="noopener noreferrer" className="group relative flex items-center justify-center rounded-3xl bg-[#111] p-4 transition-colors hover:bg-[#1a1a1a] overflow-hidden">
-                            <span className="absolute bottom-4 left-4 text-lg font-bold transition-transform duration-300 group-hover:translate-y-10 group-hover:opacity-0">Instagram</span>
+                            <span className="absolute bottom-6 left-6 text-2xl font-bold transition-transform duration-300 group-hover:translate-y-12 group-hover:opacity-0">Instagram</span>
                             <SiInstagram className="h-12 w-12 text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110" />
                         </a>
                         <a href="https://github.com/abhipulavarthi" target="_blank" rel="noopener noreferrer" className="group relative flex items-center justify-center rounded-3xl bg-[#111] p-4 transition-colors hover:bg-[#1a1a1a] overflow-hidden">
-                            <span className="absolute bottom-4 left-4 text-lg font-bold transition-transform duration-300 group-hover:translate-y-10 group-hover:opacity-0">GitHub</span>
+                            <span className="absolute bottom-6 left-6 text-2xl font-bold transition-transform duration-300 group-hover:translate-y-12 group-hover:opacity-0">GitHub</span>
                             <SiGithub className="h-12 w-12 text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110" />
                         </a>
                     </div>
 
                     {/* Location Block - Spans 1 col */}
                     <div className="flex flex-col justify-between rounded-3xl bg-[#111] p-8 md:col-span-1">
-                        <h3 className="text-3xl font-medium">India</h3>
-                        <p className="text-sm text-white/60">Hyderabad, Telangana</p>
+                        <h3 className="text-4xl font-bold tracking-tight">India</h3>
+                        <p className="text-lg text-white/70">Current Location</p>
                     </div>
 
                     {/* Contact Block (Denver) - Spans 2 cols */}
                     <div className="flex flex-col justify-between rounded-3xl bg-[#111] p-8 md:col-span-2">
-                        <h3 className="text-4xl font-medium lg:text-4xl">abhinav.pulavarthi06@gmail.com</h3>
-                        <p className="text-sm text-white/60">+91 7989746968</p>
+                        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">abhinav.pulavarthi06@gmail.com</h3>
+                        <div className="flex flex-col sm:flex-row sm:justify-between text-lg text-white/70 gap-2">
+                            <span>Hyderabad, Telangana</span>
+                            <span>+91 7989746968</span>
+                        </div>
                     </div>
                 </div>
             </div>

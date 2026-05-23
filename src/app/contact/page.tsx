@@ -1,11 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useState } from "react";
-
-import { SiLinkedin, SiInstagram, SiX, SiGithub } from "react-icons/si";
 import Image from "next/image";
+import gsap from "gsap";
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -14,6 +12,35 @@ export default function Contact() {
         email: ""
     });
     const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        const header = containerRef.current.querySelector(".header-card");
+        if (header) {
+            gsap.fromTo(header,
+                { opacity: 0, y: -20 },
+                { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.1 }
+            );
+        }
+
+        const formCard = containerRef.current.querySelector(".form-card");
+        if (formCard) {
+            gsap.fromTo(formCard,
+                { opacity: 0, scale: 0.96 },
+                { opacity: 1, scale: 1, duration: 0.65, ease: "power3.out", delay: 0.2 }
+            );
+        }
+
+        const graphicCard = containerRef.current.querySelector(".graphic-card");
+        if (graphicCard) {
+            gsap.fromTo(graphicCard,
+                { opacity: 0, x: 25 },
+                { opacity: 1, x: 0, duration: 0.75, ease: "power3.out", delay: 0.25 }
+            );
+        }
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData(prev => ({
@@ -44,7 +71,6 @@ export default function Contact() {
             if (response.ok) {
                 setStatus("success");
                 setFormData({ name: "", message: "", email: "" });
-                // Reset success status after 5 seconds if desired
                 setTimeout(() => setStatus("idle"), 5000);
             } else {
                 setStatus("error");
@@ -56,15 +82,10 @@ export default function Contact() {
     };
 
     return (
-        <section className="h-screen w-screen bg-[#050505] p-4 font-sans text-white md:p-6 overflow-hidden">
+        <section ref={containerRef} className="h-screen w-screen bg-[#050505] p-4 font-sans text-white md:p-6 overflow-hidden">
             <div className="mx-auto h-full w-full max-w-[1800px] flex flex-col">
                 {/* Navigation / Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="mb-4 flex items-center justify-between rounded-3xl bg-[#111] px-6 py-4 shadow-sm border border-white/15 shrink-0"
-                >
+                <div className="header-card opacity-0 mb-4 flex items-center justify-between rounded-3xl bg-[#111] px-6 py-4 shadow-sm border border-white/15 shrink-0">
                     <div className="flex items-center gap-2">
                         <Link href="/" className="group flex items-center justify-center rounded-full bg-[#1a1a1a] p-3 transition-colors hover:bg-[#222]">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-x-1">
@@ -76,42 +97,25 @@ export default function Contact() {
                     <div className="hidden md:block">
                         <span className="text-sm font-medium text-white/40">Abhinav Pulavarthi</span>
                     </div>
-                </motion.div>
+                </div>
 
                 <div className="grid w-full flex-1 grid-cols-1 gap-3 md:grid-cols-5 md:gap-4 min-h-0">
 
-
-                    {/* --- ROW 2: Main Content --- */}
-
                     {/* Contact Form - Spans 3 cols */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
-                        className="relative flex flex-col rounded-3xl bg-[#111] p-6 text-white md:col-span-3 overflow-y-auto border border-white/15"
-                    >
-                        {/* Close / Back Button */}
+                    <div className="form-card opacity-0 relative flex flex-col rounded-3xl bg-[#111] p-6 text-white md:col-span-3 overflow-y-auto border border-white/15">
                         <div className="flex items-center justify-between">
                             <div className="self-start rounded-full border border-white/10 bg-[#1a1a1a] px-5 py-2 text-sm font-bold uppercase tracking-wide">
                                 <span className="text-white/70">{"Let's connect!"}</span>
                             </div>
                             {status === "success" && (
-                                <motion.div
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    className="rounded-full bg-green-500/10 border border-green-500/20 px-5 py-2 text-sm font-bold text-green-400 uppercase tracking-wide"
-                                >
+                                <div className="rounded-full bg-green-500/10 border border-green-500/20 px-5 py-2 text-sm font-bold text-green-400 uppercase tracking-wide">
                                     Message Sent!
-                                </motion.div>
+                                </div>
                             )}
                             {status === "error" && (
-                                <motion.div
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    className="rounded-full bg-red-500/10 border border-red-500/20 px-5 py-2 text-sm font-bold text-red-400 uppercase tracking-wide"
-                                >
+                                <div className="rounded-full bg-red-500/10 border border-red-500/20 px-5 py-2 text-sm font-bold text-red-400 uppercase tracking-wide">
                                     Failed to send.
-                                </motion.div>
+                                </div>
                             )}
                         </div>
 
@@ -161,16 +165,10 @@ export default function Contact() {
                                 </button>
                             </div>
                         </form>
-                    </motion.div>
+                    </div>
 
                     {/* Right Graphic - Spans 2 cols */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="relative hidden md:block overflow-hidden rounded-3xl bg-[#B8C0EC] md:col-span-2"
-                    >
-
+                    <div className="graphic-card opacity-0 relative hidden md:block overflow-hidden rounded-3xl bg-[#B8C0EC] md:col-span-2">
                         <Image
                             src="/images/contact-collage.jpg"
                             alt="Creative collage"
@@ -178,7 +176,7 @@ export default function Contact() {
                             className="object-cover"
                             priority
                         />
-                    </motion.div>
+                    </div>
 
                 </div>
             </div>
